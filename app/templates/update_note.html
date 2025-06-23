@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メモの更新
+    </title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+    <body>
+        <div class="container">
+            <h1>メモの更新</h1>
+            <form action="/update-note/{{ note.id }}" method="POST">
+                <label for="title">タイトル:</label>
+                <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
+                
+                <label for="contents">内容:</label>
+                <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
+                
+                <button type="submit">メモを更新</button>
+            </form>
+            <a href="/notes" class="btn-back">リストに戻る</a>
+            <a href="/" class="btn-add">メニューに戻る</a>
+        </div>
+    </body>
+</html>

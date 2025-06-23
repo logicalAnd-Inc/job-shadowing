@@ -55,12 +55,35 @@ def add_note():
         return redirect('/notes')
     return render_template('add_note.html')
 
+# メモの更新
+@app.route('/update-note/<int:id>', methods=['GET', 'POST'])
+def update_note(id):
+    conn = get_db_connection()
+    note = conn.execute('SELECT id, title, contents FROM notes WHERE id = ?', (id,)).fetchone()
+    # conn.close() # @app.teardown_appcontext で閉じる場合は不要
+
+    if note is None:
+        # メモが見つからない場合のエラーハンドリング
+        return "メモが見つかりませんでした", 404
+
+    if request.method == 'POST':
+        title = request.form['title']
+        contents = request.form['contents']
+        conn = get_db_connection()
+        conn.execute('UPDATE notes SET title = ?, contents = ? WHERE id = ?', (title, contents, id))
+        conn.commit()
+        conn.close()
+        return redirect('/notes')
+    
+    return render_template('update_note.html', note=note)
+
 # メモの一覧表示
 @app.route('/notes')
 def note_list():
     conn = get_db_connection()
     notes = conn.execute('SELECT * FROM notes').fetchall()
     conn.close()
+
     return render_template('note_list.html', notes=notes)
 
 # メモの削除機能
@@ -71,6 +94,11 @@ def delete_note(id):
     conn.commit()
     conn.close()
     return redirect('/notes')
+
+# 404画面
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
