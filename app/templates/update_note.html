@@ -6,21 +6,26 @@
     <title>メモの更新
     </title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/index.css">
 </head>
-    <body>
-        <div class="container">
-            <h1>メモの更新</h1>
-            <form action="/update-note/{{ note.id }}" method="POST">
-                <label for="title">タイトル:</label>
-                <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
-                
-                <label for="contents">内容:</label>
-                <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
-                
-                <button type="submit">メモを更新</button>
-            </form>
-            <a href="/notes" class="btn-back">リストに戻る</a>
-            <a href="/" class="btn-add">メニューに戻る</a>
-        </div>
-    </body>
+<body>
+    <a href="/" class="back-link">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><path d="M10.5 3l-5 5 5 5" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="margin-left: 4px; vertical-align: middle;">メニューに戻る</span>
+    </a>
+    <div class="container">
+        <h1>メモの更新</h1>
+        <form action="/update-note/{{ note.id }}" method="POST">
+            <label for="title">タイトル:</label>
+            <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
+            
+            <label for="contents">内容:</label>
+            <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
+            
+            <button type="submit">メモを更新</button>
+        </form>
+        <a href="/notes" class="btn-back">リストに戻る</a>
+        <a href="/" class="btn-add">メニューに戻る</a>
+    </div>
+</body>
 </html>
