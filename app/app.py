@@ -1,13 +1,11 @@
 from flask import Flask, request, render_template, redirect, url_for
 from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db
-import os
 
 app = Flask(__name__)
 
 # 初回リクエスト時にテーブルを作成
 @app.before_request
 def create_table():
-    """アプリケーションの最初のリクエスト前にデータベーステーブルを作成します。"""
     create_table_at_first()
 
 # ホームメニュー
@@ -19,14 +17,12 @@ def index():
 @app.route('/add-note', methods=['GET', 'POST'])
 def add_note():
     if request.method == 'POST':
+        # 追加処理
         title = request.form['title']
         contents = request.form['contents']
-
-        if insert_note_db(title, contents):
-            return redirect(url_for('note_list'))
-        else:
-            return "メモの追加中にエラーが発生しました。", 500
-
+        insert_note_db(title, contents)
+        return redirect(url_for('note_list'))
+    
     return render_template('add_note.html')
 
 # メモの更新
@@ -34,33 +30,32 @@ def add_note():
 def update_note(id):
     note = get_note_by_id(id)
 
+    # メモがあるか確認
     if note is None:
         return "メモが見つかりませんでした。", 404
 
+    # 更新処理
     if request.method == 'POST':
         title = request.form['title']
         contents = request.form['contents']
-        
-        if update_note_db(id, title, contents):
-            return redirect(url_for('note_list'))
-        else:
-            return "メモの更新中にエラーが発生しました。", 500
+        update_note_db(id, title, contents)
+        return redirect(url_for('note_list'))
     
     return render_template('update_note.html', note=note)
 
 # メモの一覧表示
 @app.route('/notes')
 def note_list():
+    # メモを全件取得
     notes = get_all_notes()
     return render_template('note_list.html', notes=notes)
 
 # メモの削除機能
 @app.route('/delete-note/<int:id>', methods=['POST'])
 def delete_note(id):
-    if delete_note_db(id):
-        return redirect(url_for('note_list'))
-    else:
-        return "メモの削除中にエラーが発生しました。", 500
+    # 削除処理
+    delete_note_db(id)
+    return redirect(url_for('note_list'))
 
 # 404画面
 @app.errorhandler(404)

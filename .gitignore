@@ -1,3 +1,2 @@
-/app/notes.db
-/__pycache__
 app/notes.db
+app/__pycache__

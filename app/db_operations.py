@@ -21,12 +21,11 @@ def create_table_at_first():
             ''')
             conn.execute('''
                 INSERT INTO notes (title, contents)
-                VALUES ('サンプルタイトル', 'これは最初のノートのサンプル内容です。')
+                VALUES ('タイトル', '内容')
             ''')
             conn.commit()
-            print("「notes」テーブルが作成され、初期データが挿入されました。")
         else:
-            print("「notes」テーブルは既に存在します。")
+            pass
     except sqlite3.Error as e:
         print(f"データベースエラーが発生しました (create_table_at_first): {e}")
     finally:
