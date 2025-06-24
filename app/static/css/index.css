@@ -21,7 +21,7 @@ header.header-container {
     padding: 0 8px 24px 8px;
     width: 100%;
     box-sizing: border-box;
-    align-items: stretch;
+    align-items: flex-start;
 }
 @media (max-width: 450px) { 
     .card-container {
