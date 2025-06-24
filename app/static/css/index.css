@@ -126,21 +126,82 @@ header.header-container p {
     letter-spacing: 0.03em;
 }
 
-.back-link {
-    margin: 0 0 12px 0;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #222;
-    background: none;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 500;
-    box-shadow: none;
-    padding: 0;
-    transition: color 0.2s;
-    z-index: 10;
+.back-link-wrapper {
+    width: 100%; /* 親要素の幅いっぱいに */
+    max-width: 500px; /* containerと同じ最大幅 */
+    margin-bottom: 25px; /* フォームとの間にスペース */
+    text-align: left; /* リンクを左寄せにする */
 }
+.back-link {
+    display: inline-flex; /* アイコンとテキストを横並びに */
+    align-items: center; /* 垂直方向の中央揃え */
+    text-decoration: none;
+    color: #007bff; /* リンク色を青に */
+    font-weight: bold;
+    transition: color 0.2s ease-in-out; /* ホバー効果 */
+}
+.back-link:hover {
+    color: #0056b3;
+}
+.back-link svg {
+    margin-right: 6px; /* アイコンとテキストの間隔 */
+    vertical-align: middle;
+}
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+.search_text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.search_contents {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column; /* ラベルと入力欄を縦に */
+    width: 100%;
+}
+label {
+    font-weight: bold;
+    margin-bottom: 8px; /* ラベルと入力欄の間隔 */
+    color: #555;
+    font-size: 0.95em;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 12px; /* パディングを増やしました */
+    border: 1px solid #ddd; /* 線の色を少し薄く */
+    border-radius: 6px; /* 角を丸く */
+    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    font-size: 1em;
+}
+input[type="text"]:focus {
+    border-color: #007bff; /* フォーカス時に色を変える */
+    outline: none; /* デフォルトのアウトラインを消す */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* ソフトな影 */
+}
+input[type="submit"] {
+    background-color: #28a745; /* 検索ボタンの色を緑に */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em; /* フォントサイズを少し大きく */
+    margin-top: 20px; /* フォーム要素との間にスペース */
+    align-self: center; /* ボタンを中央に配置 */
+    transition: background-color 0.2s ease-in-out; /* ホバー効果 */
+}
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
 .back-link svg path {
     stroke: #222;
     transition: stroke 0.2s;

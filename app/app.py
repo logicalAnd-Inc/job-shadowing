@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db
+from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, get_search_notes
 
 app = Flask(__name__)
 
@@ -48,6 +48,18 @@ def update_note(id):
 def note_list():
     # メモを全件取得
     notes = get_all_notes()
+    return render_template('note_list.html', notes=notes)
+
+@app.route('/notes/search', methods=['GET', 'POST'])
+def search_note_list():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        contents = request.form.get('contents')
+        notes = get_search_notes(title, contents)
+    else:
+        title = request.args.get('title')
+        contents = request.args.get('contents')
+        notes = get_search_notes(title, contents)
     return render_template('note_list.html', notes=notes)
 
 # メモの削除機能

@@ -1,4 +1,6 @@
 import sqlite3
+import sys
+from pprint import pprint
 
 # データベース接続関数
 def get_db_connection():
@@ -39,6 +41,31 @@ def get_all_notes():
         return notes
     except sqlite3.Error as e:
         print(f"データベースエラーが発生しました (get_all_notes): {e}")
+        return []
+    finally:
+        conn.close()
+
+# 検索したのノートの取得
+def get_search_notes(title, contents): # 引数のデフォルト値は、呼び出し側でNoneを渡すことを前提にすれば不要
+    conn = get_db_connection()
+    notes = []
+    try:
+        query = "SELECT * FROM notes WHERE 1=1" 
+        params = []
+
+        if title:
+            # タイトルが指定されている場合
+            query += " AND title LIKE ?"
+            params.append(f"%{title}%")
+
+        if contents:
+            # 内容が指定されている場合
+            query += " AND contents LIKE ?"
+            params.append(f"%{contents}%")
+        notes = conn.execute(query, params).fetchall()
+        return notes
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (get_search_notes): {e}")
         return []
     finally:
         conn.close()
