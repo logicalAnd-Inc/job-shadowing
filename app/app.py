@@ -20,7 +20,10 @@ def add_note():
         # 追加処理
         title = request.form['title']
         contents = request.form['contents']
-        insert_note_db(title, contents)
+        MOB = request.form['MOB']
+        damage = request.form['damage']
+
+        insert_note_db(title, contents,MOB,damage)
         return redirect(url_for('note_list'))
     
     return render_template('add_note.html')

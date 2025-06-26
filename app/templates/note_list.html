@@ -11,27 +11,35 @@
     <div class="container">
         <a href="/" class="back-link">
             <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;"><path d="M10.5 3l-5 5 5 5" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span style="margin-left: 4px; vertical-align: middle;">メニューに戻る</span>
+            <span style="margin-left: 4px; vertical-align: middle;">戻ろう</span>
         </a>
-        <h1>リスト</h1>
-        <div class="card-container">
+        <h1>マイクラ図鑑</h1>
+        <div class="card-container" >
             {% for note in notes %}
             <div>
                 <a href="/update-note/{{ note.id }}" style="text-decoration: none; color: inherit;">
                     <div class="card">
                         <h3>{{ note.title }}</h3>
                         <p>{{ note.contents }}</p>
+                        <p>{{ note.MOB }}</p>
+                        <p>{{ note.ダメージ }}</p>
+                        <img src="static/images/{{ note.image}}" width="auto" height="auto">
                     </div>
                 </a>
                 <form action="/delete-note/{{ note.id }}" method="POST" style="margin-top: 12px;">
-                    <button type="submit" class="delete-button">削除</button>
+                    <button type="submit" class="delete-button">消す</button>
                 </form>
             </div>
             {% endfor %}
             <a href="/add-note" class="card add-card">
-                <span>＋</span>
+                <span>+</span>
             </a>
         </div>
-    </div>
+        </div>
+        
+       
+
+
+
 </body>
 </html>

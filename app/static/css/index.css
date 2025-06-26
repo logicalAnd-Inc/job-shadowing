@@ -16,12 +16,16 @@ header.header-container {
 }
 .card-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     gap: 12px;
     padding: 0 8px 24px 8px;
     width: 100%;
     box-sizing: border-box;
     align-items: flex-start;
+}
+.card-container > div,
+.card-container > a {
+    grid-column: span 3;
 }
 @media (max-width: 450px) { 
     .card-container {
@@ -33,7 +37,7 @@ header.header-container {
     border-radius: 10px;
     padding: 18px 16px 16px 16px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    background: #fff;
+    background: #3884ff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -50,7 +54,7 @@ header.header-container {
 .card h3 {
     margin: 0 0 10px 0;
     font-size: 1.1em;
-    color: #333;
+    color: #54fd00;
     word-break: break-all;
 }
 .card small {
@@ -151,3 +155,53 @@ header.header-container p {
 .back-link:hover svg path {
     stroke: #666;
 } 
+#test {
+    color: #1aff00;
+    margin-left: 10px
+}
+#test2 {
+    color: #fff700;
+    margin-left: 10px
+}
+#test3 {
+    color: #0033ff;
+    margin-left: 10px
+}
+#test4 {
+    color: #ff0000;
+    margin-left: 10px
+}
+#test5 {
+    color: #ff9d00;
+    margin-left: 10px
+}
+#test6 {
+    color: #8400ff;
+    margin-left: 10px
+}
+#test7 {
+    color: #fb00ff;
+    margin-left: 10px
+}
+#test8 {
+    color: #00eeff;
+    margin-left: 10px
+}
+#test9 {
+    color: #00196c;
+    margin-left: 10px
+}
+#test10 {
+    color: #00aaff;
+    margin-left: 10px
+}
+#test11 {
+    color: #a10000;
+    margin-left: 10px
+}
+
+
+
+#card-container{
+    color: #a10000;
+}

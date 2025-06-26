@@ -18,7 +18,13 @@
         <form action="/update-note/{{ note.id }}" method="POST">
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
-            
+           
+            <label for="title">MOB:</label>
+            <input type="text" id="MOB" name="MOB" placeholder="MOBの名前を入れて下さい" required value="{{ note.MOB }}">
+           
+               <label for="title">ダメージ:</label>
+            <input type="text" id="ダメージ" name="ダメージ" placeholder="ダメージを入れてください" required value="{{ note.ダメージ}}">
+           
             <label for="contents">内容:</label>
             <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
             
