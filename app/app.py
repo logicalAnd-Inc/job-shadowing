@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db
+import os
 
 app = Flask(__name__)
 
@@ -67,6 +68,21 @@ def page_not_found(error):
 def internal_server_error(error):
     return render_template('500.html'), 500
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    # URLでhttp://127.0.0.1:5000/uploadを指定したときはGETリクエストとなるのでこっち
+    if request.method == 'GET':
+        return render_template('upload.html')
+    # formでsubmitボタンが押されるとPOSTリクエストとなるのでこっち
+    elif request.method == 'POST':
+        file = request.files['example']
+        file.save(os.path.join('./static/image', file.filename))
+        return redirect(url_for('uploaded_file', filename=file.filename))
+
+
+@app.route('/uploaded_file/<string:filename>')
+def uploaded_file(filename):
+    return render_template('uploaded_file.html', filename=filename)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

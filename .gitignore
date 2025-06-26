@@ -1,2 +1,3 @@
 app/notes.db
 app/__pycache__
+app/static/image

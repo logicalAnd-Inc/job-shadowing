@@ -59,7 +59,7 @@ def get_note_by_id(note_id):
 def insert_note_db(title, contents):
     conn = get_db_connection()
     try:
-        conn.execute('INSERT INTO notes (title, contents) VALUES (?, ?)', (title, contents))
+        conn.execute('INSERT INTO notes (title, contents, image) VALUES (?, ?, ?)', (title, contents, image))
         conn.commit()
         return True
     except sqlite3.Error as e:
