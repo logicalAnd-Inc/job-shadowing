@@ -47,7 +47,7 @@ def get_all_notes():
 def get_note_by_id(note_id):
     conn = get_db_connection()
     try:
-        note = conn.execute('SELECT id, title, contents FROM notes WHERE id = ?', (note_id,)).fetchone()
+        note = conn.execute('SELECT * FROM notes WHERE id = ?', (note_id,)).fetchone()
         return note
     except sqlite3.Error as e:
         print(f"データベースエラーが発生しました (get_note_by_id): {e}")
@@ -56,10 +56,10 @@ def get_note_by_id(note_id):
         conn.close()
 
 # ノートをcreateする
-def insert_note_db(title, contents):
+def insert_note_db(title, contents, image):
     conn = get_db_connection()
     try:
-        conn.execute('INSERT INTO notes (title, contents) VALUES (?, ?)', (title, contents))
+        conn.execute('INSERT INTO notes (title, contents, 画像) VALUES (?, ?, ?)', (title, contents, image))
         conn.commit()
         return True
     except sqlite3.Error as e:
@@ -70,10 +70,10 @@ def insert_note_db(title, contents):
         conn.close()
 
 # ノートをupdateする
-def update_note_db(note_id, title, contents):
+def update_note_db(note_id, title, contents, image):
     conn = get_db_connection()
     try:
-        conn.execute('UPDATE notes SET title = ?, contents = ? WHERE id = ?', (title, contents, note_id))
+        conn.execute('UPDATE notes SET title = ?, contents = ?, 画像 = ?, WHERE id = ?', (title, contents, image, note_id))
         conn.commit()
         return True
     except sqlite3.Error as e:

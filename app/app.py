@@ -20,7 +20,8 @@ def add_note():
         # 追加処理
         title = request.form['title']
         contents = request.form['contents']
-        insert_note_db(title, contents)
+        image = request.form['image']
+        insert_note_db(title, contents, image)
         return redirect(url_for('note_list'))
     
     return render_template('add_note.html')
@@ -38,7 +39,8 @@ def update_note(id):
     if request.method == 'POST':
         title = request.form['title']
         contents = request.form['contents']
-        update_note_db(id, title, contents)
+        image = request.form['image']
+        update_note_db(id, title, contents, image)
         return redirect(url_for('note_list'))
     
     return render_template('update_note.html', note=note)

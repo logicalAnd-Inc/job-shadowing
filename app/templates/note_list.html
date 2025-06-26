@@ -21,6 +21,7 @@
                     <div class="card">
                         <h3>{{ note.title }}</h3>
                         <p>{{ note.contents }}</p>
+                        <img src="static/images/{{note.画像}}" width="210px" height="140px">
                     </div>
                 </a>
                 <form action="/delete-note/{{ note.id }}" method="POST" style="margin-top: 12px;">
@@ -32,6 +33,8 @@
                 <span>＋</span>
             </a>
         </div>
-    </div>
+        <div>
+        </div>
+    </div><img src="{{ url_for('static',filename='images/image.png')}}" 
 </body>
 </html>

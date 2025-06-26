@@ -1,7 +1,7 @@
 /* 全体のスタイル */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f0f2f5;
+    background-color: #0066ff;
     margin: 0;
     padding: 0;
 }
@@ -10,15 +10,24 @@ body {
     width: 90%;
     max-width: 800px;
     margin: 50px auto;
-    background-color: #fff;
+    background-color: #ff8800a8;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgb(255, 0, 98);
+}
+.container2 {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #e5ff00;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgb(0, 187, 255);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #e600ff;
     margin-bottom: 20px;
     font-size: 2rem;
 }
@@ -37,14 +46,14 @@ label {
 input[type="text"] {
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #ad5a1f;
     border-radius: 5px;
     font-size: 1rem;
 }
 
 button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #28365f;
     color: white;
     border: none;
     border-radius: 5px;
@@ -54,7 +63,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #b0b300;
 }
 
 /* リストテーブルのスタイル */
@@ -71,13 +80,13 @@ th, td {
 }
 
 th {
-    background-color: #f8f9fa;
+    background-color: #bd762b;
     font-size: 1.2rem;
-    color: #555;
+    color: #b9621b;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #b06824;
 }
 
 .delete-button {
@@ -96,7 +105,7 @@ tr:hover {
 .btn-add, .btn-back {
     display: block;
     text-align: center;
-    background-color: #28a745;
+    background-color: #6549d5;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -105,5 +114,5 @@ tr:hover {
 }
 
 .btn-add:hover, .btn-back:hover {
-    background-color: #218838;
+    background-color: #ff6600;
 }
