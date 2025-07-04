@@ -21,7 +21,7 @@
                     <div class="card">
                         <h3>{{ note.title }}</h3>
                         <p>{{ note.contents }}</p>
-                        <img src="static/image/{{ note.image }}" style="height: 200px; object-fit: cover;" >
+                        <img src="static/images/{{ note.images }}" style="height: 200px; object-fit: cover;" >
                     </div>
                 </a>
                 <form action="/delete-note/{{ note.id }}" method="POST" style="margin-top: 12px;">

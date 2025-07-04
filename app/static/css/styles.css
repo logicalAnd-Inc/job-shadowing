@@ -42,6 +42,14 @@ input[type="text"] {
     font-size: 1rem;
 }
 
+input[type="file"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
 button {
     padding: 10px 20px;
     background-color: #007bff;

@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db
+from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_primary
 import os
 
 app = Flask(__name__)
@@ -19,15 +19,19 @@ def index():
 def add_note():
     if request.method == 'POST':
         # 追加処理
-        title = request.form['title']
-        contents = request.form['contents']
         # 画像ファイルの保存
-        file = request.files['image']
-        filepath = os.path.join('./static/image', file.filename)
+        file = request.files['images']
+        filepath = os.path.join('./static/images', file.filename)
         file.save(filepath)
         # データベースにメモを追加
-        image = os.path.basename(filepath)
-        insert_note_db(title, contents, image)
+        title = request.form['title']
+        contents = request.form['contents'] 
+        images = os.path.basename(filepath)
+        insert_note_db(title, contents, images)
+        # 画像ファイル名の変更
+
+        image_rename_primary(title, images)
+
         return redirect(url_for('note_list'))
     
     return render_template('add_note.html')
@@ -43,9 +47,20 @@ def update_note(id):
 
     # 更新処理
     if request.method == 'POST':
+        # 画像ファイルの保存
+        file = request.files['images']
+        if file != note['images']:
+            os.remove(os.path.join('./static/images', note['images']))
+            filepath = os.path.join('./static/images', file.filename)
+            file.save(filepath)
+            images = os.path.basename(filepath)
+        else:
+            images = note['images']
         title = request.form['title']
         contents = request.form['contents']
-        update_note_db(id, title, contents)
+        update_note_db(id, title, contents, images)
+        # 画像ファイル名の変更
+        image_rename_primary(title, images)
         return redirect(url_for('note_list'))
     
     return render_template('update_note.html', note=note)
@@ -62,7 +77,7 @@ def note_list():
 def delete_note(id):
     # 削除処理
     note = get_note_by_id(id)
-    os.remove(os.path.join('./static/image', note['image']))
+    os.remove(os.path.join('./static/images', note['images']))
     delete_note_db(id)
     return redirect(url_for('note_list'))
 
@@ -75,22 +90,6 @@ def page_not_found(error):
 @app.errorhandler(500)
 def internal_server_error(error):
     return render_template('500.html'), 500
-
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    # URLでhttp://127.0.0.1:5000/uploadを指定したときはGETリクエストとなるのでこっち
-    if request.method == 'GET':
-        return render_template('upload.html')
-    # formでsubmitボタンが押されるとPOSTリクエストとなるのでこっち
-    elif request.method == 'POST':
-        file = request.files['example']
-        file.save(os.path.join('./static/image', file.filename))
-        return redirect(url_for('uploaded_file', filename=file.filename))
-
-
-@app.route('/uploaded_file/<string:filename>')
-def uploaded_file(filename):
-    return render_template('uploaded_file.html', filename=filename)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

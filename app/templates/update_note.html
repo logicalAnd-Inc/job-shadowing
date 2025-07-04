@@ -15,13 +15,16 @@
             <span style="margin-left: 4px; vertical-align: middle;">メニューに戻る</span>
         </a>
         <h1>メモの更新</h1>
-        <form action="/update-note/{{ note.id }}" method="POST">
+        <form action="/update-note/{{ note.id }}" method="POST" enctype="multipart/form-data">
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
             
             <label for="contents">内容:</label>
             <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
-            
+
+            <label for="images">画像:</label>
+            <input type="file" id="images" name="images" value="{{ note.images }}">
+
             <button type="submit">メモを更新</button>
         </form>
         <a href="/notes" class="btn-back">リストに戻る</a>
