@@ -47,7 +47,7 @@ def get_all_notes():
 def get_note_by_id(note_id):
     conn = get_db_connection()
     try:
-        note = conn.execute('SELECT id, title, contents FROM notes WHERE id = ?', (note_id,)).fetchone()
+        note = conn.execute('SELECT id, title, contents, image FROM notes WHERE id = ?', (note_id,)).fetchone()
         return note
     except sqlite3.Error as e:
         print(f"データベースエラーが発生しました (get_note_by_id): {e}")
@@ -56,7 +56,7 @@ def get_note_by_id(note_id):
         conn.close()
 
 # ノートをcreateする
-def insert_note_db(title, contents):
+def insert_note_db(title, contents, image):
     conn = get_db_connection()
     try:
         conn.execute('INSERT INTO notes (title, contents, image) VALUES (?, ?, ?)', (title, contents, image))

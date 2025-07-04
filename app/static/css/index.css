@@ -16,7 +16,7 @@ header.header-container {
 }
 .card-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     padding: 0 8px 24px 8px;
     width: 100%;
@@ -42,6 +42,7 @@ header.header-container {
     cursor: pointer;
     transition: box-shadow 0.2s, border 0.2s;
     min-height: 140px;
+    width: calc(1028px / 3 - 24px);
 }
 .card:hover {
     box-shadow: 0 8px 24px 0 rgba(0,0,0,0.12);

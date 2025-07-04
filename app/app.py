@@ -21,7 +21,13 @@ def add_note():
         # 追加処理
         title = request.form['title']
         contents = request.form['contents']
-        insert_note_db(title, contents)
+        # 画像ファイルの保存
+        file = request.files['image']
+        filepath = os.path.join('./static/image', file.filename)
+        file.save(filepath)
+        # データベースにメモを追加
+        image = os.path.basename(filepath)
+        insert_note_db(title, contents, image)
         return redirect(url_for('note_list'))
     
     return render_template('add_note.html')
@@ -55,6 +61,8 @@ def note_list():
 @app.route('/delete-note/<int:id>', methods=['POST'])
 def delete_note(id):
     # 削除処理
+    note = get_note_by_id(id)
+    os.remove(os.path.join('./static/image', note['image']))
     delete_note_db(id)
     return redirect(url_for('note_list'))
 
