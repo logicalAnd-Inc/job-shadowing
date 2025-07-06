@@ -91,5 +91,14 @@ def page_not_found(error):
 def internal_server_error(error):
     return render_template('500.html'), 500
 
+@app.route('/detail-note/<int:id>', methods=['GET'])
+def detail_note(id):
+    note = get_note_by_id(id)
+    # メモがあるか確認
+    if note is None:
+        return "メモが見つかりませんでした。", 404
+    else:
+        return render_template('detail_note.html', note=note)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
