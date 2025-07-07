@@ -178,3 +178,10 @@ header.header-container p {
 .back-link:hover svg path {
     stroke: #666;
 } 
+
+th, td {
+    padding: 8px;
+    margin: 0 auto;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}

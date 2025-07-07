@@ -53,7 +53,7 @@ function updateRowNumbers() {
         const input = TRs[i].getElementsByTagName('td');
         if (input) {
             if(input[0].tagName.toLowerCase() === 'td') {
-                input[0].innerHTML = '<strong>' + i + '</strong>';
+                input[0].innerHTML = i;
             }
         }
     }
