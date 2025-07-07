@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>リスト</title>
+    <title>{{ note.title }}</title>
     <link rel="stylesheet" href="/static/css/detail_note.css">
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="stylesheet" href="/static/css/index.css">
@@ -15,14 +15,12 @@
         <span style="margin-left: 4px; vertical-align: middle;">メニューに戻る</span>
     </a>
     <div class="title">
-      <h1>作り方</h1>
+      <h1>{{ note.title }}</h1>
     </div>
 
     <div class="note-detail">
       <img src="/static/images/{{ note.images }}" alt="Note Image" style="width: 100%; height: 600px; object-fit: cover; display: block; margin: 0 auto;">
-        <h2>{{ note.title }}</h2>
-
-        <section>
+        <section id ="note-contents">
           <p>{{ note.contents }}</p>
         </section>
         </div>  

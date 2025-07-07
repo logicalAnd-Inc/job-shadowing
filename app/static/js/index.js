@@ -30,3 +30,31 @@ document.addEventListener('click', function(e) {
         }
     }
 }); 
+
+function addRow() {
+    var table = document.getElementById('ingredients-table');
+    var body = document.getElementById('ingredients-body');
+    var newRow = document.createElement('tr');
+    newRow.innerHTML = 
+    '<td></td>' + 
+    '<td><input type="text" name="ingredient" placeholder="例: じゃがいも" required></td>' + 
+    '<td><input type="text" name="amount" placeholder="例: 2個" required></td>' + 
+    '<td><button type="button" onclick="this.parentElement.parentElement.remove()">削除</button></td>';
+    body.appendChild(newRow);
+    // 行番号を更新
+    updateRowNumbers();
+}
+
+function updateRowNumbers() {
+    const table = document.getElementById('ingredients-table');
+    const TRs = table.getElementsByTagName('tr');
+    const rowCount = TRs.length;
+    for (let i = 1; i < rowCount; ++i) {
+        const input = TRs[i].getElementsByTagName('td');
+        if (input) {
+            if(input[0].tagName.toLowerCase() === 'td') {
+                input[0].innerHTML = '<strong>' + i + '</strong>';
+            }
+        }
+    }
+}

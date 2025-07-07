@@ -7,9 +7,16 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# データベース接続関数
+def get_db_connection_ingredient():
+    conn_ingredient = sqlite3.connect('ingredients.db')
+    conn_ingredient.row_factory = sqlite3.Row
+    return conn_ingredient
+
 # 初回起動時にテーブルを作成ダミーデータを挿入
 def create_table_at_first():
     conn = get_db_connection()
+
     try:
         cursor = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='notes'")
         if not cursor.fetchone():
@@ -32,6 +39,29 @@ def create_table_at_first():
         print(f"データベースエラーが発生しました (create_table_at_first): {e}")
     finally:
         conn.close()
+
+def create_table_at_first_ingredient():
+    conn_ingredient = get_db_connection_ingredient()
+    
+    try:
+        cursor = conn_ingredient.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='ingredients'")
+        if not cursor.fetchone():
+            # ingredientsテーブルの作成
+            conn_ingredient.execute('''
+                CREATE TABLE IF NOT EXISTS ingredients (
+                    notes_id INTEGER NOT NULL,
+                    ingredient_id INTEGER NOT NULL,
+                    ingredient TEXT NOT NULL,
+                amount TEXT NOT NULL
+                )
+            ''')
+            conn_ingredient.commit()
+        else:
+            pass
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (create_table_at_first_ingredient): {e}")
+    finally:
+        conn_ingredient.close()
 
 # すべてのノートの取得
 def get_all_notes():
@@ -112,5 +142,29 @@ def image_rename_primary(title, filepath):
     except sqlite3.Error as e:
         print(f"データベースエラーが発生しました (image_rename_primary): {e}")
         return False
+    finally:
+        conn.close()
+
+def insert_ingredient_db(note_id, ingredient_id, ingredient, amount):
+    conn = get_db_connection_ingredient()
+    try:
+        conn.execute('INSERT INTO ingredients (notes_id, ingredient_id, ingredient, amount) VALUES (?, ?, ?, ?)', (note_id, ingredient_id, ingredient, amount))
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (insert_ingredient_db): {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()
+
+def get_last_note():
+    conn = get_db_connection()
+    try:
+        last_note = conn.execute('SELECT id FROM notes ORDER BY id DESC LIMIT 1').fetchone()
+        return last_note[0] if last_note else None
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (get_last_note): {e}")
+        return None
     finally:
         conn.close()

@@ -7,6 +7,7 @@
     </title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/index.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,11 +17,30 @@
         </a>
         <h1>新しいメモの追加</h1>
         <form action="/add-note" method="POST" enctype="multipart/form-data">
-            <label for="title">タイトル:</label>
-            <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required>
-            
-            <label for="contents">内容:</label>
-            <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required>
+            <label for="title">料理名:</label>
+            <input type="text" id="title" name="title" placeholder="料理名を入れてください" required>
+
+            <label for="ingredients">材料:</label>
+            <table id="ingredients-table">
+                <tbody id="ingredients-body">
+                    <tr name="header">
+                        <th>番号</th>
+                        <th>材料名</th>
+                        <th>分量</th>
+                        <th>削除</th>
+                    </tr>
+                    <tr name="ingredient-row">
+                        <td name="row-number">1</td>
+                        <td><input type="text" name="ingredient" placeholder="例: じゃがいも" required></td>
+                        <td><input type="text" name="amount" placeholder="例: 2個" required></td>
+                        <td><button type="button" onclick="this.parentElement.parentElement.remove()">削除</button></td>
+                    </tr>
+                    <button type="button" onclick="addRow()">行を追加</button>
+                </tbody>
+            </table>
+
+            <label for="contents">作り方:</label>
+            <input type="text" id="contents" name="contents" placeholder="その料理の作り方を入れてください" required>
 
             <label for="images">画像:</label>
             <input type="file" id="images" name="images">

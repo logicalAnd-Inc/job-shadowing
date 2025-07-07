@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_primary
+from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_primary, insert_ingredient_db, create_table_at_first_ingredient, get_last_note
 import os
 
 app = Flask(__name__)
@@ -8,6 +8,7 @@ app = Flask(__name__)
 @app.before_request
 def create_table():
     create_table_at_first()
+    create_table_at_first_ingredient()
 
 # ホームメニュー
 @app.route('/', methods=['GET'])
@@ -29,9 +30,15 @@ def add_note():
         images = os.path.basename(filepath)
         insert_note_db(title, contents, images)
         # 画像ファイル名の変更
-
+        last_note = get_last_note()
         image_rename_primary(title, images)
 
+        ingredients = []
+        amounts = []
+        ingredients = request.form.getlist('ingredient')
+        amounts = request.form.getlist('amount')
+        for i in range(len(ingredients)):
+            insert_ingredient_db(last_note, i + 1, ingredients[i], amounts[i])
         return redirect(url_for('note_list'))
     
     return render_template('add_note.html')
@@ -99,6 +106,8 @@ def detail_note(id):
         return "メモが見つかりませんでした。", 404
     else:
         return render_template('detail_note.html', note=note)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

@@ -2,3 +2,4 @@ app/notes.db
 app/__pycache__
 app/static/images/*
 !app/static/images/default_image.png
+app/*.db
