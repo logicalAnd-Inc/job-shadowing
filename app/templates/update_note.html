@@ -43,7 +43,7 @@
             </table>
 
             <label for="contents">内容:</label>
-            <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
+            <textarea id="contents" name="contents" placeholder="その料理の作り方を入れてください" required>{{ note.contents }}</textarea>
 
             <label for="images">画像:</label>
             <input type="file" id="images" name="images" value="{{ note.images }}">

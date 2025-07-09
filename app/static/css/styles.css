@@ -42,6 +42,15 @@ input[type="text"] {
     font-size: 1rem;
 }
 
+textarea {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    height: 150px;
+}
+
 input[type="file"] {
     padding: 10px;
     margin-bottom: 20px;

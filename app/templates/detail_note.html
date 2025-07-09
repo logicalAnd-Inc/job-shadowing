@@ -23,6 +23,7 @@
       <img src="/static/images/{{ note.images }}" alt="Note Image" style="width: 100%; height: 600px; object-fit: cover; display: block; margin: 0 auto;">
         <section id ="note-contents">
             <h2>材料</h2>
+            {% if ingredient %}
             <table>
               <thead>
                 <tr>
@@ -41,7 +42,11 @@
                 {% endfor %}
               </tbody>
             </table>
+            {% endif %}
+        <pre>
+          <h2>作り方</h2>
           <p>{{ note.contents }}</p>
+        </pre>
         </section>
     </div>
   </div> 
