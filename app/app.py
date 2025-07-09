@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_unique, insert_ingredient_db, create_table_at_first_ingredient, get_last_note, delete_ingredient_db, get_ingredient_by_note_id, update_ingredient_db
+from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_unique, insert_ingredient_db, create_table_at_first_ingredient, get_last_note, delete_ingredient_db, get_ingredient_by_note_id
 import os
 
 app = Flask(__name__)
@@ -79,12 +79,16 @@ def update_note(id):
         if images != 'default_image.png':
             image_rename_unique(title, images)
 
+        delete_ingredient_db(id)
+
         # 材料の更新
+        ingredients = []
+        amounts = []
         last_note = get_last_note()
         ingredients = request.form.getlist('ingredient')
         amounts = request.form.getlist('amount')
         for i in range(len(ingredients)):
-            update_ingredient_db(last_note, i + 1, ingredients[i], amounts[i])
+            insert_ingredient_db(last_note, i + 1, ingredients[i], amounts[i])
 
         return redirect(url_for('note_list'))
     
