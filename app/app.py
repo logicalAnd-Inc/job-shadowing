@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_primary, insert_ingredient_db, create_table_at_first_ingredient, get_last_note
+from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_unique, insert_ingredient_db, create_table_at_first_ingredient, get_last_note
 import os
 
 app = Flask(__name__)
@@ -31,7 +31,7 @@ def add_note():
         insert_note_db(title, contents, images)
         # 画像ファイル名の変更
         last_note = get_last_note()
-        image_rename_primary(title, images)
+        image_rename_unique(title, images)
 
         ingredients = []
         amounts = []
@@ -67,7 +67,7 @@ def update_note(id):
         contents = request.form['contents']
         update_note_db(id, title, contents, images)
         # 画像ファイル名の変更
-        image_rename_primary(title, images)
+        image_rename_unique(title, images)
         return redirect(url_for('note_list'))
     
     return render_template('update_note.html', note=note)

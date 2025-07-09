@@ -130,17 +130,17 @@ def delete_note_db(note_id):
         conn.close()
 
 # 画像ファイル名の変更
-def image_rename_primary(title, filepath):
+def image_rename_unique(title, filepath):
     conn = get_db_connection()
     try:
-        id = conn.execute('SELECT id FROM notes WHERE title = ?', (title,)).fetchone()[0]
+        id = conn.execute('SELECT id FROM notes WHERE title = ? ORDER BY id DESC', (title,)).fetchone()[0]
         new_filepath = f'{id}.png'
         conn.execute('UPDATE notes SET images = ? WHERE id = ?', (new_filepath, id))
         conn.commit()
         os.rename(os.path.join('./static/images', filepath), f'./static/images/{new_filepath}')
         return True
     except sqlite3.Error as e:
-        print(f"データベースエラーが発生しました (image_rename_primary): {e}")
+        print(f"データベースエラーが発生しました (image_rename_unique): {e}")
         return False
     finally:
         conn.close()
