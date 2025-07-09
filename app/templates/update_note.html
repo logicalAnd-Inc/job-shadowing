@@ -6,6 +6,7 @@
     <title>メモの更新</title>
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/index.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,6 +19,29 @@
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" placeholder="メモのタイトルを入れてください" required value="{{ note.title }}">
             
+            <label for="ingredients">材料:</label>
+            <table id="ingredients-table">
+                <thead>
+                    <tr name="header">
+                        <th>番号</th>
+                        <th>材料名</th>
+                        <th>分量</th>
+                        <th>削除</th>
+                    </tr>
+                </thead>
+                <tbody id="ingredients-body">
+                    {% for ingredient in ingredient %}
+                    <tr name="ingredient-row">
+                        <td name="row-number" value="{{ ingredient.ingredient_id }}"></td>
+                        <td><input type="text" name="ingredient" placeholder="例: じゃがいも" required value="{{ ingredient.ingredient }}"></td>
+                        <td><input type="text" name="amount" placeholder="例: 2個" required value="{{ ingredient.amount }}"></td>
+                        <td><button type="button" onclick="this.parentElement.parentElement.remove()">削除</button></td>
+                    </tr>
+                    {% endfor %}
+                    <button type="button" onclick="addRow()">行を追加</button>
+                </tbody>
+            </table>
+
             <label for="contents">内容:</label>
             <input type="text" id="contents" name="contents" placeholder="内容を入れてください" required value="{{ note.contents }}">
 
@@ -30,3 +54,5 @@
     </div>
 </body>
 </html>
+<script>updateRowNumbers()</script>
+

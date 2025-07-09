@@ -168,3 +168,40 @@ def get_last_note():
         return None
     finally:
         conn.close()
+
+def delete_ingredient_db(note_id):
+    conn = get_db_connection_ingredient()
+    try:
+        conn.execute('DELETE FROM ingredients WHERE notes_id = ?', (note_id,))
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (delete_ingredient_db): {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()
+
+def get_ingredient_by_note_id(note_id):
+    conn = get_db_connection_ingredient()
+    try:
+        ingredients = conn.execute('SELECT notes_id, ingredient_id, ingredient, amount FROM ingredients WHERE notes_id = ?', (note_id,)).fetchall()
+        return ingredients
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (get_ingredients_by_note_id): {e}")
+        return []
+    finally:
+        conn.close()
+
+def update_ingredient_db(note_id, ingredient_id, ingredient, amount):
+    conn = get_db_connection_ingredient()
+    try:
+        conn.execute('UPDATE ingredients SET ingredient = ?, amount = ? WHERE notes_id = ? AND ingredient_id = ?', (ingredient, amount, note_id, ingredient_id))
+        conn.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"データベースエラーが発生しました (update_ingredient_db): {e}")
+        conn.rollback()
+        return False
+    finally:
+        conn.close()

@@ -22,6 +22,25 @@
     <div class="note-detail">
       <img src="/static/images/{{ note.images }}" alt="Note Image" style="width: 100%; height: 600px; object-fit: cover; display: block; margin: 0 auto;">
         <section id ="note-contents">
+            <h2>材料</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>番号</th>
+                  <th>材料名</th>
+                  <th>分量</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ingredient in ingredient %}
+                  <tr>
+                    <td>{{ ingredient.ingredient_id }}</td>
+                    <td>{{ ingredient.ingredient }}</td>
+                    <td>{{ ingredient.amount }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           <p>{{ note.contents }}</p>
         </section>
     </div>
