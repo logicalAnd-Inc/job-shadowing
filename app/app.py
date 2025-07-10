@@ -60,7 +60,7 @@ def update_note(id):
         # 画像ファイル名を取得
         file = request.files['images']
         filename = str(file.filename)
-        if filename == '':
+        if filename == '' or filename is None or filename == 'null' or filename == 'NULL' or filename == 'undefined':
             filename = note['images']
 
         if filename != note['images']:

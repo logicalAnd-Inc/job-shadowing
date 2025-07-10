@@ -145,6 +145,7 @@ def image_rename_unique(title, filepath):
     finally:
         conn.close()
 
+# 材料をinsertする
 def insert_ingredient_db(note_id, ingredient_id, ingredient, amount):
     conn = get_db_connection_ingredient()
     try:
@@ -158,6 +159,7 @@ def insert_ingredient_db(note_id, ingredient_id, ingredient, amount):
     finally:
         conn.close()
 
+# 最後のノートのIDを取得
 def get_last_note():
     conn = get_db_connection()
     try:
@@ -169,6 +171,7 @@ def get_last_note():
     finally:
         conn.close()
 
+# 材料をdeleteする
 def delete_ingredient_db(note_id):
     conn = get_db_connection_ingredient()
     try:
@@ -182,6 +185,7 @@ def delete_ingredient_db(note_id):
     finally:
         conn.close()
 
+# 指定されたノートIDに関連する材料を取得
 def get_ingredient_by_note_id(note_id):
     conn = get_db_connection_ingredient()
     try:
