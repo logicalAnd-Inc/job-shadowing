@@ -2,7 +2,9 @@ version: '0'
 
 services:
   web:
-    build: .
+    build:
+        context: .
+        dockerfile: docker/Dockerfile
     ports:
       - '8888:5000'
     volumes:
