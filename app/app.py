@@ -1,5 +1,20 @@
 from flask import Flask, request, render_template, redirect, url_for
-from db_operations import create_table_at_first, get_all_notes, get_note_by_id, insert_note_db, update_note_db, delete_note_db, image_rename_unique, insert_ingredient_db, create_table_at_first_ingredient, get_last_note, delete_ingredient_db, get_ingredient_by_note_id
+from db_operations import (
+    create_table_at_first,
+    create_table_at_first_ingredient,
+    get_all_notes,
+    get_note_by_id,
+    get_last_note,
+    get_ingredient_by_note_id,
+    insert_note_db,
+    insert_ingredient_db,
+    update_note_db,
+    delete_note_db,
+    delete_ingredient_db,
+)
+from helper import (
+    generate_unique_filename
+)
 import os
 
 app = Flask(__name__)
@@ -19,20 +34,22 @@ def index():
 @app.route('/add-note', methods=['GET', 'POST'])
 def add_note():
     if request.method == 'POST':
-        # 追加処理
-        # 画像ファイルの保存
-        file = request.files['images']
-        filepath = os.path.join('./static/images', file.filename)
-        file.save(filepath)
+        # 画像ファイルの保存と判定
+        last_note = get_last_note()
+        file = request.files.get('images')
+        if file and file.filename:
+            images = generate_unique_filename(file.filename)
+            filepath = os.path.join('./static/images', images)
+            file.save(filepath)
+        else:
+            images = 'default_image.png'
+
         # データベースにメモを追加
         title = request.form['title']
-        contents = request.form['contents'] 
-        images = os.path.basename(filepath)
+        contents = request.form['contents']
         insert_note_db(title, contents, images)
-        # 画像ファイル名の変更
-        last_note = get_last_note()
-        image_rename_unique(title, images)
 
+        # 材料をデータベースに保存
         ingredients = []
         amounts = []
         ingredients = request.form.getlist('ingredient')
@@ -58,28 +75,21 @@ def update_note(id):
     # 更新処理
     if request.method == 'POST':
         # 画像ファイル名を取得
-        file = request.files['images']
-        filename = str(file.filename)
-        if filename == '' or filename is None or filename == 'null' or filename == 'NULL' or filename == 'undefined':
-            filename = note['images']
-
-        if filename != note['images']:
+        file = request.files.get('images')
+        # ファイルがなかった場合にはDBの画像名を使用
+        if file is None or file.filename == '':
+            images = note['images']
+        else:
             if note['images'] != 'default_image.png':
                 os.remove(os.path.join('./static/images', note['images']))
-            filepath = os.path.join('./static/images', filename)
+            images = generate_unique_filename(file.filename)
+            filepath = os.path.join('./static/images', images)
             file.save(filepath)
-            images = os.path.basename(filepath)
-        else:
-            images = note['images']
 
+        # メモの更新
         title = request.form['title']
         contents = request.form['contents']
         update_note_db(id, title, contents, images)
-        # 画像ファイル名の変更
-        if images != 'default_image.png':
-            image_rename_unique(title, images)
-
-        delete_ingredient_db(id)
 
         # 材料の更新
         ingredients = []
@@ -87,6 +97,9 @@ def update_note(id):
         last_note = get_last_note()
         ingredients = request.form.getlist('ingredient')
         amounts = request.form.getlist('amount')
+        # 材料の削除
+        delete_ingredient_db(id)
+        # 材料の再登録
         for i in range(len(ingredients)):
             insert_ingredient_db(last_note, i + 1, ingredients[i], amounts[i])
 

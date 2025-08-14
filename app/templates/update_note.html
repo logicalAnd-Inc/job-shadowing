@@ -46,7 +46,8 @@
             <textarea id="contents" name="contents" placeholder="その料理の作り方を入れてください" required>{{ note.contents }}</textarea>
 
             <label for="images">画像:</label>
-            <input type="file" id="images" name="images" value="{{ note.images }}">
+            <img src="/static/images/{{ note.images }}" alt="現在の画像" style="max-width: 200px;">
+            <input type="file" id="images" name="images">
 
             <button type="submit">メモを更新</button>
         </form>
