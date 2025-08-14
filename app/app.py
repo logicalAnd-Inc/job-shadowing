@@ -126,7 +126,7 @@ def delete_note(id):
     # 削除処理
     note = get_note_by_id(id)
     if note['images'] != DEFAULT_IMAGE:
-        os.remove(os.path.join('./static/images', note['images']))
+        image_delete(note['images'])
     delete_note_db(id)
     delete_ingredient_db(id)
     return redirect(url_for('note_list'))
