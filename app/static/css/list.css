@@ -1,0 +1,126 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 8px 24px 8px;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: flex-start;
+}
+@media (max-width: 450px) { 
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 18px 16px 16px 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 0.2s, border 0.2s;
+    min-height: 140px;
+    width: calc(1028px / 3 - 24px);
+}
+.card:hover {
+    box-shadow: 0 8px 24px 0 rgba(0,0,0,0.12);
+    border: 1.5px solid #007bff;
+}
+.card h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    color: #333;
+    word-break: break-all;
+}
+.card small {
+    display: block;
+    margin-bottom: 8px;
+    color: #888;
+}
+.card p {
+    margin: 0 0 12px 0;
+    color: #555;
+    font-size: 1em;
+    word-break: break-all;
+}
+.add-card {
+    border: 2px dashed #bbb;
+    background: #f8f8f8;
+    color: #bbb;
+    transition: border 0.2s, color 0.2s, background 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    aspect-ratio: unset;
+    width: auto;
+    min-height: 140px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 0;
+    text-decoration: none;
+}
+.add-card:hover {
+    border: 2px solid #888;
+    color: #888;
+    background: #f0f0f0;
+}
+.add-card span {
+    font-size: 2em;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 12px;
+}
+
+
+.update-button {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.95em;
+    align-self: flex-end;
+    margin-top: auto;
+    transition: background-color 0.2s;
+}
+
+.update-button:hover {
+    background-color: #28a745;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.95em;
+    align-self: flex-end;
+    margin-top: auto;
+    transition: background-color 0.2s;
+    margin-left: 8px;
+}
+.delete-button:hover {
+    background-color: #c82333;
+}

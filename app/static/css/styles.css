@@ -1,21 +1,50 @@
 /* 全体のスタイル */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f0f2f5;
+    background: #f5f5f5;
+    color: #222;
     margin: 0;
     padding: 0;
 }
 
+/* メインのコンテナのスタイル */
 .container {
     width: 90%;
-    max-width: 800px;
-    margin: 50px auto;
+    max-width: 1028px;
+    margin: 0 auto;
+    padding: 24px 10px;
     background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    border-radius: 1px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* 戻るボタンのスタイル */
+.back-link {
+    align-items: center;
+    gap: 4px;
+    color: #222;
+    background: none;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 500;
+    box-shadow: none;
+    padding: 12px;
+    transition: color 0.2s;
+    z-index: 10;
+}
+.back-link svg path {
+    stroke: #222;
+    transition: stroke 0.2s;
+}
+.back-link:hover {
+    color: #666;
+}
+.back-link:hover svg path {
+    stroke: #666;
+} 
+
+/* タイトル、ページ名のスタイル */
 h1 {
     text-align: center;
     color: #333;
@@ -23,17 +52,16 @@ h1 {
     font-size: 2rem;
 }
 
+/* フォームのスタイル */
 form {
     display: flex;
     flex-direction: column;
 }
-
 label {
     font-size: 1.1rem;
     margin-bottom: 5px;
     color: #555;
 }
-
 input[type="text"] {
     padding: 10px;
     margin-bottom: 20px;
@@ -41,7 +69,6 @@ input[type="text"] {
     border-radius: 5px;
     font-size: 1rem;
 }
-
 textarea {
     padding: 10px;
     margin-bottom: 20px;
@@ -50,7 +77,6 @@ textarea {
     font-size: 1rem;
     height: 150px;
 }
-
 input[type="file"] {
     padding: 10px;
     margin-bottom: 20px;
@@ -58,7 +84,6 @@ input[type="file"] {
     border-radius: 5px;
     font-size: 1rem;
 }
-
 button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -69,7 +94,6 @@ button {
     font-size: 1rem;
     transition: background-color 0.3s ease;
 }
-
 button:hover {
     background-color: #0056b3;
 }
@@ -81,7 +105,10 @@ table {
     margin-bottom: 20px;
 }
 
+
 th, td {
+    margin: 0 auto;
+    vertical-align: middle;
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -95,32 +122,4 @@ th {
 
 tr:hover {
     background-color: #f1f1f1;
-}
-
-.delete-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: #c82333;
-}
-
-.btn-add, .btn-back {
-    display: block;
-    text-align: center;
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 10px 0;
-}
-
-.btn-add:hover, .btn-back:hover {
-    background-color: #218838;
 }
