@@ -38,8 +38,6 @@ def index():
 @app.route('/add-note', methods=['GET', 'POST'])
 def add_note():
     if request.method == 'POST':
-        # 画像ファイルの保存と判定
-        last_note = get_last_note()
         file = request.files.get('images')
         if file and file.filename:
             images = generate_unique_filename(file.filename)
@@ -58,6 +56,8 @@ def add_note():
         amounts = []
         ingredients = request.form.getlist('ingredient')
         amounts = request.form.getlist('amount')
+        # 材料保存のために最後のノートIDを取得
+        last_note = get_last_note()
         for i in range(len(ingredients)):
             insert_ingredient_db(last_note, i + 1, ingredients[i], amounts[i])
         return redirect(url_for('note_list'))
