@@ -13,11 +13,15 @@ from db_operations import (
     delete_ingredient_db,
 )
 from helper import (
-    generate_unique_filename
+    generate_unique_filename,
+    image_delete
 )
 import os
 
 app = Flask(__name__)
+
+# デフォルトイメージの名前を宣言
+DEFAULT_IMAGE = 'default_image.png'
 
 # 初回リクエスト時にテーブルを作成
 @app.before_request
@@ -42,7 +46,7 @@ def add_note():
             filepath = os.path.join('./static/images', images)
             file.save(filepath)
         else:
-            images = 'default_image.png'
+            images = DEFAULT_IMAGE
 
         # データベースにメモを追加
         title = request.form['title']
@@ -80,8 +84,10 @@ def update_note(id):
         if file is None or file.filename == '':
             images = note['images']
         else:
-            if note['images'] != 'default_image.png':
-                os.remove(os.path.join('./static/images', note['images']))
+        # ファイルがあった場合の処理
+        # デフォルト画像の削除をしないようにする
+            if note['images'] != DEFAULT_IMAGE:
+                image_delete(note['images'])
             images = generate_unique_filename(file.filename)
             filepath = os.path.join('./static/images', images)
             file.save(filepath)
@@ -119,7 +125,7 @@ def note_list():
 def delete_note(id):
     # 削除処理
     note = get_note_by_id(id)
-    if note['images'] != 'default_image.png':
+    if note['images'] != DEFAULT_IMAGE:
         os.remove(os.path.join('./static/images', note['images']))
     delete_note_db(id)
     delete_ingredient_db(id)
