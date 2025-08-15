@@ -1,3 +1,6 @@
+/* note_list.htmlのCSSスタイルシート */
+
+/* メモカードコンテナのスタイル */
 .card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -12,6 +15,8 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* メモカードのスタイル */
 .card {
     border: 1px solid #e0e0e0;
     border-radius: 10px;
@@ -49,6 +54,8 @@
     font-size: 1em;
     word-break: break-all;
 }
+
+/* 追加ボタンのスタイル */
 .add-card {
     border: 2px dashed #bbb;
     background: #f8f8f8;
@@ -83,6 +90,7 @@
     text-decoration: none;
 }
 
+/* 編集、削除ボタンのスタイル */
 .card-actions {
     display: flex;
     justify-content: flex-end;
@@ -90,7 +98,7 @@
     margin-top: 12px;
 }
 
-
+/* 編集ボタンのスタイル */
 .update-button {
     background-color: green;
     color: white;
@@ -103,11 +111,11 @@
     margin-top: auto;
     transition: background-color 0.2s;
 }
-
 .update-button:hover {
     background-color: #28a745;
 }
 
+/* 削除ボタンのスタイル */
 .delete-button {
     background-color: #dc3545;
     color: white;

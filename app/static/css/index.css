@@ -1,4 +1,6 @@
-/* container, card, add-card など一覧ページ用のCSS */
+/* index.htmlのCSSスタイルシート */
+
+/* "メモを追加する", "リスト"のスタイル */
 .btn-add, .btn-back {
     display: block;
     text-align: center;

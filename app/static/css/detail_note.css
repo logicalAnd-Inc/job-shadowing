@@ -1,3 +1,6 @@
+/* details_note.htmlのCSSスタイルシート */
+
+/* タイトルのスタイル */
 .title {
   text-align: center;
   margin-top: 20px;
@@ -5,21 +8,19 @@
   border-bottom: gray solid 1px;
 }
 
+/* ノートの詳細のスタイル */
 .note-detail {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  /* background-color: #f9f9f9; */
   border-radius: 8px;
 }
-
 .note-detail h2 {
   text-align: center;
   font-size: 36px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
 .note-detail p {
   font-size: 24px;
   line-height: 1.6;
@@ -27,17 +28,18 @@
   max-width: 800px;
 }
 
+/* 余白空け用 */
 section {
   margin-top: 40px;
 }
 
+/* "作り方"のスタイル */
 pre {
   /* background-color: #f8f8f8; */
   padding: 10px;
   margin-top: 40px;
   overflow-x: auto;
 }
-
 p {
   color: #333;
   margin: 0 auto;
